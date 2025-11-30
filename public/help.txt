@@ -1,0 +1,55 @@
+<div class="modal-content">
+
+                <h2 class="modal-title">Approve Task</h2>
+
+                <label for="approve-rating">Rating</label>
+                <select id="approve-rating" class="modal-input">
+                    <option value="">Select rating</option>
+                    <option value="1">1 - Poor</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="3">3 - Good</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="5">5 - Excellent</option>
+                </select>
+
+                <label for="approve-remark">Remark</label>
+                <textarea id="approve-remark" class="modal-input"></textarea>
+
+                <button id="approveTaskSubmit" class="modal-btn modal-submit">Submit</button>
+                <button id="closeApproveModal" class="modal-btn modal-cancel">Cancel</button>
+            </div>
+
+<div class="modal-overlay active" id="approveTaskModal">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h2>Approve Task</h2>
+                    <button class="modal-close" onclick="closeAssignTaskModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="ApproveTaskForm">
+                        <div class="form-group">
+                            <label for="taskTitle">Task Title</label>
+                            <input type="text" id="taskTitle" name="taskTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskMember">Assign to Member</label>
+                            <select id="taskMember" name="taskMember" required>
+                                <option value="">Select Member</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDescription">Description</label>
+                            <textarea id="taskDescription" name="taskDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueDate">Due Date</label>
+                            <input type="date" id="taskDueDate" name="taskDueDate" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeAssignTaskModal()">Cancel</button>
+                    <button class="modal-btn modal-btn-primary" onclick="submitAssignTask()">Assign Task</button>
+                </div>
+            </div>
+        </div>

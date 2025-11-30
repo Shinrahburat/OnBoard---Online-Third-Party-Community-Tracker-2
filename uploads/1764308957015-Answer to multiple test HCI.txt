@@ -1,0 +1,10 @@
+1. C. To design systems around the needs, abilities and limitations of users
+2. B. Collecting requirements and understanding user context
+3. C. Social sciences / psychology
+4. B. Ensuring the technology aligns with actual user workflows and is usable
+5. B. It allows designers to test ideas early with users and iterate based on feedback
+6. C. Collaboration between researchers, designers and end-users
+7. B. Use a small number of representative users and observe their actual behaviour
+8.C. Higher user satisfaction, reduced training time, and improved adoption
+9. C. They require careful integration, user-testing, and alignment with pedagogy and research goals
+10. C. The property of an object which indicates how it can be used

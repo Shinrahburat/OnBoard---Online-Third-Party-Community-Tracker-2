@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/StyleSheets/LogIn.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/Images/Logo.ico" />
+    <title>Login - OnBoard</title>
+    
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="/Images/Logo.png" alt="OnBoard Logo">
+                    OnBoard
+                </div>
+                <h1 class="welcome-text">Welcome Back</h1>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="you@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+
+                <div class="forgot-password">
+                    <a href="#">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+            <div class="divider">or continue with</div>
+
+            <div class="social-login">
+                <button class="social-btn">
+                    <span>🔍</span> Google
+                </button>
+                <button class="social-btn">
+                    <span>📘</span> Facebook
+                </button>
+            </div>
+
+            <div class="signup-prompt">
+                Don't have an account? <a href="/Html/RegistChoose.html">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Page_JS/LogIn.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" type="image/x-icon" href="/Images/Logo.ico" />
+<link rel="stylesheet" href="/StyleSheets/RegistChoose.css">
+<title>OnBoard - Choose Your Role</title>
+
+</head>
+<body>
+
+<div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="logo-section">
+            <div class="logo">
+                <img src="/Images/Logo.ico" alt="Logo">
+                OnBoard
+            </div>
+        </div>
+        <h2 class="welcome-text">Choose Your Role</h2>
+        <p class="subtitle">Select how you'd like to get started</p>
+
+        <div class="role-cards">
+            <div class="role-card" data-role="Member" id="memberCard">
+                <div class="role-content">
+                    <div class="role-header">
+                        <div class="role-icon">👥</div>
+                        <h3 class="role-title">Member</h3>
+                    </div>
+                    <p class="role-description">Join the community and participate as a member. Connect, collaborate, and engage with others.</p>
+                </div>
+                <div class="checkmark"></div>
+            </div>
+
+            <div class="role-card" data-role="Founder" id="founderCard">
+                <div class="role-content">
+                    <div class="role-header">
+                        <div class="role-icon">🚀</div>
+                        <h3 class="role-title">Founder</h3>
+                    </div>
+                    <p class="role-description">Start and manage your own community as a founder. Build, lead, and grow your organization.</p>
+                </div>
+                <div class="checkmark"></div>
+            </div>
+        </div>
+
+        <button class="login-btn" id="continueBtn" disabled>Continue</button>
+    </div>
+</div>
+
+<script src="/Page_JS/RegisChoose.js"></script>
+
+</body>
+</html>

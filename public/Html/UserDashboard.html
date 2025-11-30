@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/StyleSheets/UserDashboard.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/Images/Logo.ico" />
+    <title>Member Dashboard - OnBoard</title>
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="/Images/Logo.png" alt="OnBoard Logo">
+                    <span class="logo-text">OnBoard</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-item active" onclick="switchTab('home')">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Home</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('dashboard')">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('profile')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">My Profile</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('attendance')">
+                    <span class="nav-icon">✓</span>
+                    <span class="nav-text">My Attendance</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('task')">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Task</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('documents')">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text">Documents</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('feedback')">
+                    <span class="nav-icon">💬</span>
+                    <span class="nav-text">Feedback</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('inventory')">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Inventory</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('settings')">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                </div>
+            </nav>
+
+            <div class="user-profile">
+                <div class="user-avatar" id="sidebarAvatar">...</div>
+                <div class="user-info">
+                    <div class="user-name" id="sidebarUserName">Loading...</div>
+                    <div class="user-role" id="sidebarUserRole">Member</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <span class="menu-toggle" onclick="toggleSidebar()">☰</span>
+                    <h1 class="page-title" id="pageTitle">Home</h1>
+                </div>
+                <div class="top-bar-right">
+                    <h1 id="nameSaCompany"></h1>
+                    <!-- Notification Bell -->
+                    <div class="notification-container">
+                        <div class="notification-bell" onclick="toggleNotificationPanel()">
+                            <span class="notification-icon">🔔</span>
+                            <span class="notification-badge" id="notificationBadge">3</span>
+                        </div>
+
+                        <div class="notification-panel" id="notificationPanel">
+                            <div class="notification-panel-header">
+                                <span class="panel-title">Notifications</span>
+                                <span class="mark-all-read" onclick="markAllAsRead(event)">Mark all as read</span>
+                            </div>
+                            <div class="notification-list" id="notificationList">
+                                <!-- Notifications will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Home Tab (Announcements Feed) -->
+                <div class="tab-content active" id="home">
+                    <!-- Welcome Banner -->
+                    <div class="welcome-banner">
+                        <div class="welcome-content">
+                            <div class="welcome-text">
+                                <h2 id="welcomeMessage">Welcome back! 👋</h2>
+                                <p>Stay updated with the latest community announcements</p>
+                            </div>
+                            <div class="welcome-emoji">📢</div>
+                        </div>
+                    </div>
+
+                    <div class="announcements-container">
+                        <!-- Filter Buttons -->
+                        <div class="announcement-filter">
+                            <span class="filter-label">Filter:</span>
+                            <button class="filter-btn active" onclick="filterAnnouncements('all')">All</button>
+                            <button class="filter-btn" onclick="filterAnnouncements('announcement')">Announcements</button>
+                            <button class="filter-btn" onclick="filterAnnouncements('urgent')">Urgent</button>
+                            <button class="filter-btn" onclick="filterAnnouncements('events')">Events</button>
+                            <button class="filter-btn" onclick="filterAnnouncements('reports')">Reports</button>
+                        </div>
+
+                        <!-- Announcements Feed -->
+                        <div id="announcementsFeed">
+                            <div class="loading">Loading announcements...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Tab (Stats Overview) -->
+                <div class="tab-content" id="dashboard">
+                    <!-- Stats Grid -->
+                    <div class="stats-grid" id="dashboardStats">
+                        <div class="loading">Loading statistics...</div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h3 class="section-title">Quick Actions</h3>
+                        <div class="actions-grid">
+                            <div class="action-card" onclick="switchTab('profile')">
+                                <div class="action-icon">👤</div>
+                                <div class="action-title">Update Profile</div>
+                            </div>
+                            <div class="action-card" onclick="switchTab('attendance')">
+                                <div class="action-icon">✓</div>
+                                <div class="action-title">Check Attendance</div>
+                            </div>
+                            <div class="action-card" onclick="switchTab('documents')">
+                                <div class="action-icon">📄</div>
+                                <div class="action-title">View Documents</div>
+                            </div>
+                            <div class="action-card" onclick="switchTab('feedback')">
+                                <div class="action-icon">💬</div>
+                                <div class="action-title">Submit Feedback</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div id="recentActivityContainer"></div>
+
+                </div>
+
+                <!-- Profile Tab -->
+                <div class="tab-content" id="profile">
+                    <div class="profile-card" id="profileContent">
+                        <div class="loading">Loading profile...</div>
+                    </div>
+                </div>
+
+                <!-- Attendance Tab -->
+                <div class="tab-content" id="attendance">
+                    <div class="stats-grid" id="attendanceStats">
+                        <div class="loading">Loading attendance statistics...</div>
+                    </div>
+
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Attendance History</h3>
+                            <div class="table-actions">
+                               <button class="btn btn-primary" id="clockInBtn">➕ ClockIn</button>
+                               <div id="message"></div>
+                            </div>
+                        </div>
+                       
+                        <div id="attendanceTable">
+                            <div class="loading">Loading attendance records...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Tab -->
+                <div class="tab-content" id="task">
+                    <div class="stats-grid" id="taskStats">
+                        <div class="loading">Loading task statistics...</div>
+                    </div>
+
+                    <!-- Section Navigation for Tasks -->
+                    <div class="section-nav">
+                        <button class="section-nav-btn active" onclick="switchSectionTab('task', 'pending')">
+                            📋 Pending Tasks
+                        </button>
+                        <button class="section-nav-btn" onclick="switchSectionTab('task', 'approval')">
+                            ⏳ For Approval
+                        </button>
+                        <button class="section-nav-btn" onclick="switchSectionTab('task', 'history')">
+                            📜 Task Record
+                        </button>
+                    </div>
+
+                    <!-- Pending Tasks Section -->
+                    <div class="section-content active" id="task-pending">
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">Pending Tasks</h3>
+                            </div>
+                           
+                            <div id="taskTable">
+                                <div class="loading">Loading tasks...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- For Approval Tasks Section -->
+                    <div class="section-content" id="task-approval">
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">For Approval Tasks</h3>
+                            </div>
+                            
+                            <div id="forApprovalTaskTable">
+                                <div class="loading">Loading tasks...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Task History Section -->
+                    <div class="section-content" id="task-history">
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">Task Record</h3>
+                            </div>
+                            <div id="taskHistoryTable">
+                                <div class="loading">Loading records...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+
+                <!-- Documents Tab -->
+                <div class="tab-content" id="documents">
+                    <!-- Section Navigation for Documents -->
+                    <div class="section-nav">
+                        <button class="section-nav-btn active" onclick="switchSectionTab('documents', 'my')">
+                            📁 My Documents
+                        </button>
+                        <button class="section-nav-btn" onclick="switchSectionTab('documents', 'shared')">
+                            🤝 Shared Documents
+                        </button>
+                    </div>
+
+                    <!-- My Documents Section -->
+                    <div class="section-content active" id="documents-my">
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">My Documents</h3> 
+                            </div>
+                            <div id="myDocumentsTable">
+                                <div class="loading">Loading documents...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shared Documents Section -->
+                    <div class="section-content" id="documents-shared">
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">Shared Documents</h3> 
+                            </div>
+                            
+                            <div id="sharedDocumentsTable">
+                                <div class="loading">Loading shared documents...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback Tab -->
+                <div class="tab-content" id="feedback">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h3 class="section-title">
+                                <span class="title-icon">💬</span>
+                                Submit Feedback or Complaint
+                            </h3>
+                            <p class="section-subtitle">We value your input and are here to help you</p>
+                        </div>
+
+                        <form id="feedbackForm">
+                            <div class="form-group">
+                                <label for="feedbackType">
+                                    <span class="label-icon">📋</span>
+                                    Feedback Type
+                                    <span class="required">*</span>
+                                </label>
+                                <select id="feedbackType" required>
+                                    <option value="">Select feedback type</option>
+                                    <option value="Quick Report">⚡ Quick Report</option>
+                                    <option value="Complaint">⚠️ Complaint</option>
+                                    <option value="Suggestion">💡 Suggestion</option>
+                                    <option value="Feedback">💬 Feedback</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">
+                                    <span class="label-icon">✏️</span>
+                                    Subject
+                                    <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="subject" 
+                                    placeholder="Brief description of your feedback" 
+                                    maxlength="100"
+                                    required>
+                                <span class="char-counter" id="subjectCounter">0/100</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="messageContent">
+                                    <span class="label-icon">📝</span>
+                                    Message Content
+                                    <span class="required">*</span>
+                                </label>
+                                <textarea 
+                                    id="messageContent" 
+                                    name="messageContent" 
+                                    placeholder="Provide details about your feedback or complaint..." 
+                                    maxlength="500"
+                                    required></textarea>
+                                <span class="char-counter" id="messageCounter">0/500</span>
+                            </div>
+
+                            <button type="submit" class="btn-primary-form">
+                                <span class="btn-icon">📤</span>
+                                Submit Feedback
+                            </button>
+
+                            <div class="success-message" id="successMessage">
+                                <span style="font-size: 24px;">✅</span>
+                                <span>Your feedback has been submitted successfully!</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="data-table-container" style="margin-top: 2rem;">
+                        <div class="table-header">
+                                <h3 class="table-title">My Feedback History</h3>
+                            </div>
+                        <div id="feedbackHistoryTable">
+                            <div class="loading">Loading feedback history...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Tab -->
+                    <div class="tab-content" id="inventory">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-icon blue">📦</div>
+                            </div>
+                            <div class="stat-value" id="itemCount"></div>
+                            <div class="stat-label">Total Items</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-icon green">✓</div>
+                            </div>
+                            <div class="stat-value" id="itemInStock"></div>
+                            <div class="stat-label">In Stock</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-icon orange">⚠️</div>
+                            </div>
+                            <div class="stat-value" id="itemLowOnStock"></div>
+                            <div class="stat-label">Low Stock</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-icon red">❌</div>
+                            </div>
+                            <div class="stat-value" id="itemOutStock"></div>
+                            <div class="stat-label">Out of Stock</div>
+                        </div>
+                    </div>
+
+                    <!-- Section Navigation for Inventory -->
+                    <div class="section-nav">
+                        <button class="section-nav-btn active" onclick="switchSectionTab('inventory', 'management')">
+                            📦 Inventory Management
+                        </button>
+                        <button class="section-nav-btn" onclick="switchSectionTab('inventory', 'requests')">
+                            📝 Item Requests
+                        </button>
+                    </div>
+
+                    <!-- Inventory Management Section -->
+                    <div class="section-content active" id="inventory-management">
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">Inventory Management</h3>
+                                <div class="table-actions">
+                                    <div class="search-box">
+                                        <span class="search-icon">🔍</span>
+                                        <input type="text" id="inventorySearch" placeholder="Search...">
+                                    </div>
+                                    
+                                    <button class="btn btn-primary" onclick="openInventoryRequestModal()">➕ Request Item</button>
+                                </div>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item Code</th>
+                                        <th>Item Name</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventoryTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Item Requests Section -->
+                    <div class="section-content" id="inventory-requests">
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">Item Request Record</h3>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Item Name</th>
+                                        <th>Quantity</th>   
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="requestTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Settings Tab -->
+                <div class="tab-content" id="settings">
+                    <div class="form-container" id="settingsForm">
+                        <div class="loading">Loading settings...</div>
+                    </div>
+                </div>
+                
+            </div>
+        </main>
+    </div>
+
+    <script src="/Page_JS/UserDashboard.js"></script>
+    <script>
+        // Sample notification data
+        
+        const notifications = [
+            {
+                id: 1,
+                icon: '✓',
+                title: 'Attendance Recorded',
+                description: 'Your attendance for today has been marked as present.',
+                time: '2 hours ago',
+                unread: true
+            },
+            {
+                id: 2,
+                icon: '📄',
+                title: 'Document Uploaded',
+                description: 'Your leave request document has been successfully uploaded.',
+                time: '5 hours ago',
+                unread: true
+            },
+            {
+                id: 3,
+                icon: '💬',
+                title: 'Feedback Response',
+                description: 'Your manager has responded to your feedback submission.',
+                time: '1 day ago',
+                unread: true
+            },
+            {
+                id: 4,
+                icon: '👤',
+                title: 'Profile Updated',
+                description: 'Your profile information has been updated successfully.',
+                time: '2 days ago',
+                unread: false
+            },
+            {
+                id: 5,
+                icon: '🎉',
+                title: 'Welcome!',
+                description: 'Welcome to the employee management system.',
+                time: '3 days ago',
+                unread: false
+            }
+        ];
+
+        let isOpen = false;
+
+        function toggleNotificationPanel() {
+            const panel = document.getElementById('notificationPanel');
+            const arrow = document.getElementById('toggleArrow');
+            
+            isOpen = !isOpen;
+            
+            if (isOpen) {
+                panel.classList.add('open');
+                arrow.classList.add('open');
+            } else {
+                panel.classList.remove('open');
+                arrow.classList.remove('open');
+            }
+        }
+
+        async function renderNotifications() {
+            try {
+                // Get session to retrieve company code
+                const res = await fetch('/api/session');
+                const sessionData = await res.json();
+                if (!sessionData.loggedIn) {
+                    window.location.href = '/Index.html';
+                    return;
+                }
+                const companyCode = sessionData.user.CompanyCode;
+
+                // Fetch logs for this company
+                const response = await fetch(`/api/Logs/company/${companyCode}`);
+                const result = await response.json();
+
+                console.log('API Result:', result); // ADD THIS
+        console.log('Logs array:', result.data); // ADD THIS
+        console.log('Number of logs:', result.data?.length); // ADD THIS
+                
+                const notificationList = document.getElementById('notificationList');
+                const badge = document.getElementById('notificationBadge');
+
+                if (!result.success) {
+                    notificationList.innerHTML = '<p class="error-message">Failed to load notifications.</p>';
+                    badge.classList.add('empty');
+                    return;
+                }
+
+                const logs = result.data;
+
+                // Map activity type to icon
+                function getActivityIcon(activity) {
+                    const activityLower = (activity || '').toLowerCase();
+                    if (activityLower.includes('attendance')) return '✓';
+                    if (activityLower.includes('document')) return '📄';
+                    if (activityLower.includes('feedback')) return '💬';
+                    if (activityLower.includes('profile')) return '👤';
+                    if (activityLower.includes('login')) return '🔐';
+                    if (activityLower.includes('logout')) return '🚪';
+                    return '📌'; // default icon
+                }
+
+                // Calculate time ago
+                function getTimeAgo(date) {
+                    if (!date) return 'Recently';
+                    const now = new Date();
+                    const activityDate = new Date(date);
+                    const diffMs = now - activityDate;
+                    const diffMins = Math.floor(diffMs / 60000);
+                    const diffHours = Math.floor(diffMs / 3600000);
+                    const diffDays = Math.floor(diffMs / 86400000);
+
+                    if (diffMins < 1) return 'Just now';
+                    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+                    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+                    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+                    return activityDate.toLocaleDateString();
+                }
+
+                // For now, treat all as unread unless you add is_read field to your database
+                // You can modify this when you implement the SQL notification table
+                const unreadCount = logs.length; // or filter by is_read field if you add it
+                
+                // Update badge
+                badge.textContent = unreadCount;
+                badge.classList.toggle('empty', unreadCount === 0);
+
+                // Handle empty state
+                if (logs.length === 0) {
+                    notificationList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🔔</div>
+                            <div class="empty-state-text">No notifications yet</div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Render notifications
+                notificationList.innerHTML = logs.map(log => `
+                    <div class="notification-item unread" 
+                        onclick="markAsRead(${log.logid || log.id})">
+                        <span class="notification-item-icon">${getActivityIcon(log.Activity)}</span>
+                        <div class="notification-item-content">
+                            <div class="notification-item-title">${log.Activity || 'Activity'}</div>
+                            <div class="notification-item-description">Member: ${log.memberid || 'Unknown'} - ${log.status_type || 'Pending'}</div>
+                            <div class="notification-item-time">${getTimeAgo(log.date)}</div>
+                        </div>
+                        <div class="unread-indicator"></div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+                const notificationList = document.getElementById('notificationList');
+                notificationList.innerHTML = '<p class="error-message">Failed to load notifications.</p>';
+            }
+        }
+
+        function markAsRead(logId) {
+            // For now, just remove the unread styling
+            // Later, you can add an API call to update the database
+            event.currentTarget.classList.remove('unread');
+            const indicator = event.currentTarget.querySelector('.unread-indicator');
+            if (indicator) indicator.remove();
+            
+            // Update badge count
+            updateBadgeCount();
+            
+            // TODO: Add API call when you implement the notifications table
+            // fetch(`/api/notifications/${logId}/read`, { method: 'POST' });
+        }
+
+        function markAllAsRead(event) {
+            event.stopPropagation();
+            
+            // Remove unread styling from all notifications
+            const notificationItems = document.querySelectorAll('.notification-item.unread');
+            notificationItems.forEach(item => {
+                item.classList.remove('unread');
+                const indicator = item.querySelector('.unread-indicator');
+                if (indicator) indicator.remove();
+            });
+            
+            // Update badge
+            updateBadgeCount();
+            
+            // TODO: Add API call when you implement the notifications table
+            // fetch('/api/notifications/mark-all-read', { method: 'POST' });
+        }
+
+        function updateBadgeCount() {
+            const unreadItems = document.querySelectorAll('.notification-item.unread');
+            const badge = document.getElementById('notificationBadge');
+            const count = unreadItems.length;
+            badge.textContent = count;
+            badge.classList.toggle('empty', count === 0);
+        }
+
+        // Initialize notifications when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNotifications();
+        });
+    </script>
+    <script>
+        // Function to switch between section tabs
+        function switchSectionTab(section, subsection) {
+            // Get all section nav buttons and contents for this section
+            const sectionNavBtns = document.querySelectorAll(`#${section} .section-nav-btn`);
+            const sectionContents = document.querySelectorAll(`#${section} .section-content`);
+            
+            // Remove active class from all buttons and contents
+            sectionNavBtns.forEach(btn => btn.classList.remove('active'));
+            sectionContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Show the corresponding content
+            const targetContent = document.getElementById(`${section}-${subsection}`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        }
+    </script>
+    <script>
+        // Character counter for subject
+        const subjectInput = document.getElementById('subject');
+        const subjectCounter = document.getElementById('subjectCounter');
+
+        subjectInput.addEventListener('input', function() {
+            const length = this.value.length;
+            subjectCounter.textContent = `${length}/100`;
+            subjectCounter.style.color = length > 90 ? '#f5576c' : '#9ca3af';
+        });
+
+        // Character counter for message
+        const messageInput = document.getElementById('messageContent');
+        const messageCounter = document.getElementById('messageCounter');
+
+        messageInput.addEventListener('input', function() {
+            const length = this.value.length;
+            messageCounter.textContent = `${length}/500`;
+            messageCounter.style.color = length > 450 ? '#f5576c' : '#9ca3af';
+        });
+
+        // Form submission
+        const feedbackForm = document.getElementById('feedbackForm');
+        const successMessage = document.getElementById('successMessage');
+
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const formData = {
+                type: document.getElementById('feedbackType').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('messageContent').value
+            };
+
+            console.log('Form submitted:', formData);
+
+            // Show success message
+            successMessage.classList.add('show');
+
+            // Reset form
+            feedbackForm.reset();
+            subjectCounter.textContent = '0/100';
+            messageCounter.textContent = '0/500';
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        });
+
+        // Add focus animation to form groups
+        const formGroups = document.querySelectorAll('.form-group input, .form-group select, .form-group textarea');
+        
+        formGroups.forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.01)';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/StyleSheets/AdminDashboard.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/Images/Logo.ico" />
+    <title>Admin Dashboard - OnBoard</title>
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="/Images/Logo.png" alt="OnBoard Logo">
+                    <span class="logo-text">OnBoard</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-item active" onclick="switchTab('home')">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Home</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('overview')">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('members')">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Members</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('tasks')">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Tasks</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('attendance')">
+                    <span class="nav-icon">✓</span>
+                    <span class="nav-text">Attendance</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('inventory')">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Inventory</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('documents')">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text">Documents</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('feedback')">
+                    <span class="nav-icon">💬</span>
+                    <span class="nav-text">Feedback</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('settings')">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                </div>
+            </nav>
+
+            <div class="user-profile">
+                <div class="user-avatar" id="userAvatar"></div>
+                <div class="user-info">
+                    <div class="user-name" id="userName"></div>
+                    <div class="user-role"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <span class="menu-toggle" onclick="toggleSidebar()">☰</span>
+                    <h1 class="page-title" id="pageTitle">Home</h1>
+                </div>
+                <div class="top-bar-right">
+                    <h1 id="nameSaCompany"></h1>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+
+                <div class="tab-content active" id="home">
+                    <!-- Welcome Banner -->
+                    <div class="welcome-banner">
+                        <div class="welcome-content">
+                            <div class="welcome-text">
+                                <h2 id="welcomeMessage">Welcome back! 👋</h2>
+                                <h3 id="userName"></h3>
+                                <p>Stay updated with the latest community announcements</p>
+                            </div>
+                            <div class="welcome-emoji">📢</div>
+                        </div>
+                    </div>
+
+                    <div class="announcements-container">
+                        <!-- Add Announcement Button -->
+                        <div class="announcement-header">
+                            <button class="btn-add-announcement" onclick="openNewAnnouncementModal()">
+                                <span class="btn-icon">➕</span>
+                                <span>Create New Announcement</span>
+                            </button>
+                        </div>
+                        
+                    
+                        <!-- Filter Buttons -->
+                        <div class="announcement-filter">
+                            <span class="filter-label">Filter:</span>
+                            <button class="filter-btn active" onclick="filterAnnouncements('all')">All</button>
+                            <button class="filter-btn" onclick="filterAnnouncements('announcement')">Announcements</button>
+                            <button class="filter-btn" onclick="filterAnnouncements('urgent')">Urgent</button>
+                            <button class="filter-btn" onclick="filterAnnouncements('events')">Events</button>
+                            <button class="filter-btn" onclick="filterAnnouncements('reports')">Reports</button>
+                        </div>
+
+                        <!-- Announcements Feed -->
+                        <div id="announcementsFeed">
+                            <div class="loading">Loading announcements...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overview Tab -->
+                <div class="tab-content" id="overview">
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-icon blue">👥</div>
+                                
+                            </div>
+                            <div class="stat-value" id="memberCount"></div>
+                            <div class="stat-label">Total Members</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-icon green">✓</div>
+                                
+                            </div>
+                            <div class="stat-value" id="attendanceRate"></div>
+                            <div class="stat-label">Attendance Rate</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-icon orange">📝</div>
+                              
+                            </div>
+                            <div class="stat-value" id="completedTasks" ></div>
+                            <div class="stat-label">Completed Tasks</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-icon red">📦</div>
+
+                            </div>
+                            <div class="stat-value" id="inventoryCount">234</div>
+                            <div class="stat-label">Inventory Items</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Table -->
+                     <div id="recentActivityContainer"></div>
+                    
+                </div>
+
+                <!-- Members Tab -->
+                <div class="tab-content" id="members">
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">All Members</h3>
+                            <div class="table-actions">
+                               <button class="btn btn-primary" id="addMemberBtn">➕ Add Member</button>
+                            </div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="membersTableBody">
+                                <!-- Member rows will be populated here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+                </div>
+
+                <!-- Tasks Tab -->
+                <div class="tab-content" id="tasks">
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Tasks</h3>
+                            <div class="table-actions">
+                                <div class="search-box">
+                                    <span class="search-icon">🔍</span>
+                                    <input type="text" placeholder="Search...">
+                                </div>
+                                <button class="btn btn-secondary">🔍 Filter</button>
+                                <button class="btn btn-primary" onclick="openAssignTaskModal()">➕ Assign Task</button>
+                            </div>
+                        </div>
+                        <div id="taskContainer"></div>
+                        
+                    </div>
+
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Tasks History</h3>
+                            <div class="table-actions">
+                                <div class="search-box">
+                                    <span class="search-icon">🔍</span>
+                                    <input type="text" placeholder="Search...">
+                                </div>
+                                <button class="btn btn-secondary">🔍 Filter</button>
+                            </div>
+                        </div>
+                        <div id="taskContainerCompleted"></div>
+                        
+                    </div>
+                </div>
+
+                <!-- Attendance Tab -->
+               <div class="tab-content" id="attendance">
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Attendance Records</h3>
+                            <div class="table-actions">
+                                <button id="selectDateBtn" class="btn btn-secondary">📅 Select Date</button>
+                            </div>
+                        </div>
+
+                        <div id="attendanceTable"></div>
+                    </div>
+                </div>
+
+               
+
+                    <!-- Inventory Tab -->
+                    <div class="tab-content" id="inventory">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-icon blue">📦</div>
+                                </div>
+                                <div class="stat-value" id="itemCount"></div>
+                                <div class="stat-label">Total Items</div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-icon green">✓</div>
+                                </div>
+                                <div class="stat-value" id="itemInStock"></div>
+                                <div class="stat-label">In Stock</div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-icon orange">⚠️</div>
+                                </div>
+                                <div class="stat-value" id="itemLowOnStock"></div>
+                                <div class="stat-label">Low Stock</div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-icon red">❌</div>
+                                </div>
+                                <div class="stat-value" id="itemOutStock"></div>
+                                <div class="stat-label">Out of Stock</div>
+                            </div>
+                        </div>
+
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">Inventory Management</h3>
+                                <div class="table-actions">
+                                    <div class="search-box">
+                                        <span class="search-icon">🔍</span>
+                                        <input type="text" id="inventorySearch" placeholder="Search...">
+                                    </div>
+                                    <select class="btn btn-secondary" id="inventoryFilter">
+                                        <option value="All">All Status</option>
+                                        <option value="In Stock">In Stock</option>
+                                        <option value="Low Stock">Low Stock</option>
+                                        <option value="Out of Stock">Out of Stock</option>
+                                    </select>
+
+                                    <button class="btn btn-primary" onclick="openInventoryModal()">➕ Add Item</button>
+                                    
+                                </div>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item Code</th>
+                                        <th>Item Name</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventoryTableBody"></tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3 class="table-title">Inventory Approval</h3>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Item Name</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventoryApprovalTableBody"></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                <!-- Documents Tab -->
+                <div class="tab-content" id="documents">
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Document Management</h3>
+                            <div class="table-actions">
+
+                            <div class="search-box">
+                                <span class="search-icon">🔍</span>
+                                <input type="text" id="documentSearch" placeholder="Search...">
+                            </div>
+
+                            <select id="documentFilterDropdown" class="btn btn-secondary">
+                                <option value="All">All Types</option>
+                                <option value="Policy">Policy</option>
+                                <option value="Report">Report</option>
+                                <option value="Minutes">Minutes</option>
+                                <option value="Form">Form</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                            <button class="btn btn-primary" onclick="openUploadDocumentModal()">➕ Upload</button>
+
+                        </div>
+
+                        </div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Document Name</th>
+                                    <th>Type</th>
+                                    <th>Owner</th>
+                                    <th>Upload Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="documentTableBody">
+                                <tr>
+                                    <td colspan="6" class="loading">Loading documents...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <!-- Feedback Tab -->
+                <div class="tab-content" id="feedback">
+                    <div class="stats-grid" id="feedbackStats">
+                        <!-- Stats load dynamically -->
+                        <!-- Total, Positive, Neutral, Needs Attention -->
+                    </div>
+
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Complaints & Feedback</h3>
+                            <div class="table-actions">
+
+                                
+                                <div class="search-box">
+                                    <span class="search-icon">🔍</span>
+                                    <input type="text" id="feedbackSearch" placeholder="Search...">
+                                </div>
+                               
+
+                                <select class="btn btn-secondary" id="feedbackFilter" class="filter-select">
+                                    <option value="all">All Types</option>
+                                    <option value="Feedback">Feedback</option>
+                                    <option value="Complaint">Complaint</option>
+                                    <option value="Suggestion">Suggestion</option>
+                                    <option value="Quick Report">Quick Report</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Member</th>
+                                    <th>Type</th>
+                                    <th>Subject</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feedbackTableBody">
+                                <!-- JS will populate this -->
+                            </tbody>
+                        </table>
+
+                        
+                    </div>
+                </div>
+
+
+                <!-- Settings Tab -->
+                <div class="tab-content" id="settings">
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">My Profile</h3>
+                        </div>
+                        <div style="padding: 2rem; display: grid; gap: 2rem;">
+
+                            <!-- User Profile Section -->
+                            <div>
+                                <h4 style="margin-bottom: 1rem; color: #667eea; font-size: 1.1rem;">User Profile</h4>
+                                <div style="display: grid; gap: 1.5rem;">
+                                    <div>
+                                        <label for="firstName" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">First Name</label>
+                                        <input type="text" id="firstName" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="lastName" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Last Name</label>
+                                        <input type="text" id="lastName" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="userEmail" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Email</label>
+                                        <input type="email" id="userEmail" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="userPhone" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Phone</label>
+                                        <input type="text" id="userPhone" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="userAddress" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Address</label>
+                                        <input type="textarea" id="userAddress" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="userRole" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Role</label>
+                                        <input type="text" id="userRole" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;" readonly>
+                                    </div>
+                                    <div>
+                                        <label for="userStatus" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Status</label>
+                                        <input type="text" id="userStatus" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;" readonly>
+                                    </div>
+                                    <div>
+                                        <label for="userNotes" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Notes</label>
+                                        <input type="text" id="userNotes" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="userPassword" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Password</label>
+                                        <input type="password" id="userPassword" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Company Profile Section -->
+                            <div>
+                                <h4 style="margin-bottom: 1rem; color: #667eea; font-size: 1.1rem;">Company Profile</h4>
+                                <div style="display: grid; gap: 1.5rem;">
+                                    <div>
+                                        <label for="orgName" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Organization Name</label>
+                                        <input type="text" id="orgName" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="orgAddress" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Address</label>
+                                        <input type="textarea" id="orgAddress" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="orgPhone" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Contact Number</label>
+                                        <input type="text" id="orgPhone" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    </div>
+                                    <div>
+                                        <label for="orgCode" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Organization Code</label>
+                                        <input type="text" id="orgCode" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div style="display: flex; gap: 1rem;">
+                                <button class="btn btn-primary" id="saveProfileBtn">💾 Save Changes</button>
+                                <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/Page_JS/AdminDashboard.js"></script>
+</body>
+</html>
